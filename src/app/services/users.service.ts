@@ -100,8 +100,28 @@ export class UsersService {
     return this.http.post(API_URL + 'users/losspass/sendemail/', data, {headers: headers});
   }
 
+  /**
+   * Set the new password for the user
+   * @param data
+   */
   public changePassword(data) {
     return this.http.post(API_URL + 'users/losspass/change/', data, {headers: headers});
+  }
+
+  /**
+   * Set personal datas (avatar, firstname, lastname, gender and DateOfBirth)
+   * @param data
+   */
+  public setPersonal(data) {
+    return this.http.post(API_URL + 'firstsetup/personal/', data, {headers: headers});
+  }
+
+  /**
+   * Setting informations about the user activity and skill
+   * @param data
+   */
+  public setJobactivity(data) {
+    return this.http.post(API_URL + 'firstsetup/job/', data, {headers: headers});
   }
 
 }

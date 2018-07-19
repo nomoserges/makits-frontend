@@ -91,6 +91,7 @@ export class FirstsetupComponent implements OnInit {
 
   /* Submit personal form */
   submitPersonal(formValue) {
+    // set blank string where undefined
     // tslint:disable-next-line:forin
     for (const key in formValue) {
       const value = formValue[key];
@@ -99,7 +100,19 @@ export class FirstsetupComponent implements OnInit {
         formValue[key] = '';
       }
     }
-    console.log(formValue);
+    // create date of birth variable
+    let dobInput: string;
+    if ( formValue['dob_day'] === '' || formValue['dob_month'] === '' || formValue['dob_year'] === '') {
+      dobInput = '';
+    } else {
+      dobInput = formValue['dob_year'] + formValue['dob_month'] + formValue['dob_day'];
+    }
+    const params = 'useravatar=' + formValue['useravatar'] + '&firstname='
+    + formValue['firstname'] + '&lastname=' + formValue['lastname'] + '&gender='
+    + formValue['gender'] + '&dob=' + dobInput;
+    this.userService.setPersonal(params).subscribe(res => {
+      /* console.log(res); */
+    });
   }
 
 }
