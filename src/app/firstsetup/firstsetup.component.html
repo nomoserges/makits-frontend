@@ -26,7 +26,7 @@
           </div>
           <div class="card-content col s12 m6 white black-text wizard-form-bloc">
             <!--  Form for personal informations  -->
-            <form class="center-align" #personalForm="ngForm" 
+            <form class="center-align" #personalForm="ngForm" enctype="multipart/form-data"
             *ngIf="formPersonal" (ngSubmit)="submitPersonal(personalForm.value)" >
                 <div class="row">
                     <div class="file-field input-field">
@@ -75,10 +75,6 @@
                     </div>
                   </div>
                   <div class="row">
-                    <input id="BirthDay" name="birthday" type="text" class="datepicker"
-                    [(ngModel)]="personalModel.birthday" #birthday="ngModel" />
-                    <label for="BirthDay">Date of birth</label>
-
                     <div class="input-field col s4">
                         <select class="browser-default" name="dob_day"
                         [(ngModel)]="personalModel.dob_day" #dob_day="ngModel">

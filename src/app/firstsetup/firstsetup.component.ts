@@ -91,7 +91,14 @@ export class FirstsetupComponent implements OnInit {
 
   /* Submit personal form */
   submitPersonal(formValue) {
-    console.log( $('.datepicker').pickadate('picker').get('highlight', 'yyyy') );
+    // tslint:disable-next-line:forin
+    for (const key in formValue) {
+      const value = formValue[key];
+      // console.log(key +' => '+ value);
+      if ( formValue[key] === undefined) {
+        formValue[key] = '';
+      }
+    }
     console.log(formValue);
   }
 
