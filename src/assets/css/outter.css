@@ -1,0 +1,114 @@
+.container {
+    max-width: 1280px;
+    width: 100%;
+}
+@media only screen and (min-width: 601px){
+    .container {
+      width: 85%;
+    }
+}
+@media only screen and (min-width: 993px){
+    .container {
+      width: 70%;
+    }
+}  
+/**
+COMMONS STYLES
+**/
+html,
+body {
+    height: 100%;
+}
+html {
+    display: table;
+    margin: auto;
+}
+body{
+    /*margin:auto 0px;
+    padding: 0px;*/
+    background: url(../images/bg1.jpg) no-repeat center center fixed;
+    /*background-color: #42a5f5;*/
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus,
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus,
+.input-field textarea:focus{
+    border-bottom: 1px solid #1976d2;
+    box-shadow: 0 1px 0 0 #1976d2;
+    color: #1976d2;
+}
+/* valid color */
+.input-field input[type=text].valid,
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus,
+.input-field textarea:focus{
+    border-bottom: 1px solid #1976d2;
+    box-shadow: 0 1px 0 0 #1976d2;
+    color: #1976d2;
+}
+/* invalid color */
+.input-field input[type=text].invalid,
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus,
+.input-field textarea:focus{
+    border-bottom: 1px solid #1976d2;
+    box-shadow: 0 1px 0 0 #1976d2;
+    color: #1976d2;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #1976d2;
+}
+
+#background_opacity2 {
+position: fixed;
+z-index: -10;
+top: 0; left: 0; right: 0; bottom: 0;
+/*background-color: rgba(rgb(50, 53, 226), 0.8); */
+/* L'opacite se regle ici blue darken-4 */
+}
+.avatar {
+    width: 92px;
+    height: 92px;
+    margin-top: 10px;
+}
+.div-brand {
+    /*width: 100%;*/
+    height: 470px;
+}
+.login-form {
+    height:380px;
+}
+/*
+.login-carousel, 
+.login-card-content, 
+.login-carousel-item {
+    min-height: 150px;
+    height: 150px;
+    max-height: 150px;
+    width : 320px;
+}
+.login-carousel-item {
+    min-height: 150px;
+    height: 150px;
+    max-height: 150px;
+    width : 320px;
+    border: solid 1px red;
+    opacity: 0.75;
+    -ms-background-size: contain;
+    -o-background-size:  contain;
+    -moz-background-size:  contain;
+    -webkit-background-size:  contain;
+
+    background-size:  100% 100%;
+ }
+ */

@@ -1,0 +1,26 @@
+.post-search {
+    padding: 0px;
+  }
+  .post-search .card-content {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+  }
+  .post-search .card-action {
+    padding: 0px;
+  }
+  .post-search textarea{
+    border: red solid 0px;
+    padding: 4px 4px;
+    width: 98%;
+  }
+  .post-search textarea:focus:not([readonly]) {
+    padding: 4px 4px;
+    border-bottom:none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .card-posts {
+    font-size: 85% !important;
+  }

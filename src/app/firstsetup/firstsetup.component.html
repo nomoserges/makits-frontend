@@ -1,0 +1,186 @@
+<div class="navbar-fixed hide-on-large-only2">
+  <nav>
+      <div class="nav-wrapper blue darken-4">
+          <a routerLink="/out" class="brand-logo center" style="font-family: explora;font-size: 320%;">makits</a>
+      </div>
+  </nav>
+</div>
+<!--<div class="signup-body-color-bg"></div>-->
+<!-- Div which contain bg image     -->
+<div class="signup-body"></div>
+
+<!-- Wizard bloc for personal informations  -->
+<div class="section">
+  <div class="row">
+      <div class="card center-align col s12 blue darken-4 wizard-card">
+          <div class="card-content col s12 m6 blue darken-4 white-text wizard-desc-bloc hide-on-small-and-down">
+              <div class="centered">
+                <br>
+                <img src="../../assets/images/avatar-5.png" width="100" height="170" />
+                <p class="white-text">
+                  <strong *ngIf="formPersonal">Add more information about you to get more confidence.</strong>
+                  <strong *ngIf="formActivity">Share your skills can help more peoples arround you.</strong>
+                  <strong *ngIf="formAvatar">Give an image to your profile will bring trust to you.ddd</strong>
+                </p>
+              </div>
+          </div>
+          <div class="card-content col s12 m6 white black-text wizard-form-bloc">
+            <!--  Form for personal informations  -->
+            <form class="center-align" #personalForm="ngForm" 
+            *ngIf="formPersonal" (ngSubmit)="submitPersonal(personalForm.value)" >
+                <div class="row">
+                    <div class="file-field input-field">
+                        <div class="btn2">
+                            <img src="../../assets/images/avatar-6.png"
+                              id="imagepreview" class="circle image_preview" />
+                          <input type="file" id="avatar_input" name="usseravatar"
+                          [(ngModel)]="personalModel.usseravatar" #useravatar="ngModel" />
+                          <input class="file-path validate" type="text" style="display: none;">
+                        </div>
+                        <!--
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text" style="display: none;">
+                        </div>
+                        -->
+                      </div>
+                  <br>
+                  
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="firstName" type="text" name="firstname"
+                        [(ngModel)]="personalModel.firstname" #firstname="ngModel" />
+                        <label for="firstName">firstname</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="lastName" type="text" name="lastname" 
+                        [(ngModel)]="personalModel.lastname" #lastname="ngModel" />
+                        <label for="lastName">lastname</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <div class="col s6">
+                          <input name="gender" type="radio" id="genderFemale" 
+                          [(ngModel)]="personalModel.gender" #gender="ngModel"
+                          value="female" class="with-gap" checked="checked" />
+                          <label for="genderFemale" class="blue-text text-darken-4">Woman</label>
+                        </div>
+                        <div class="col s6">
+                          <input name="gender" type="radio" id="genderMale" 
+                          [(ngModel)]="personalModel.gender" #gender="ngModel"
+                          value="male" class="with-gap" />
+                          <label for="genderMale" class="blue-text text-darken-4">Man</label>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <input id="BirthDay" name="birthday" type="text" class="datepicker"
+                    [(ngModel)]="personalModel.birthday" #birthday="ngModel" />
+                    <label for="BirthDay">Date of birth</label>
+
+                    <div class="input-field col s4">
+                        <select class="browser-default" name="dob_day"
+                        [(ngModel)]="personalModel.dob_day" #dob_day="ngModel">
+                            <option disabled selected>Day</option>
+                            <option *ngFor="let day of dobDays" value="{{ day }}">
+                              {{ day }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <select class="browser-default" name="dob_month"
+                        [(ngModel)]="personalModel.dob_month" #dob_month="ngModel">
+                            <option disabled selected>Month</option>
+                            <option *ngFor="let month of dobMonths" value="{{ month.monthNumber }}">
+                              {{ month.longname }}
+                            </option>
+                          </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <select class="browser-default" name="dob_year"
+                        [(ngModel)]="personalModel.dob_year" #dob_year="ngModel">
+                            <option disabled selected>Year</option>
+                            <option *ngFor="let dobyear of dobYears" value="{{ dobyear }}">
+                              {{ dobyear }}
+                            </option>
+                          </select>
+                    </div>
+                </div>
+                <div class="row center-align">
+                  <div class="input-field col s6">
+                    <a class="btn white grey-text text-lighten-1 col s12"
+                    style="text-transform: none;" (click)="showActivityForm()">
+                      not now!!
+                    </a>
+                  </div>
+                  <div class="input-field col s6">
+                    <button type="submit" class="btn blue darken-4 col s12">
+                      Save
+                    </button>
+                  </div>
+                </div>
+            </form>
+            <!--  Form for activity informations  -->
+            <form class="center-align" #activityForm="ngForm" 
+              *ngIf="formActivity"
+              (submitActivity)="activityForm.form.valid && submitActivity()" novalidate>
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <input id="jobtitle" type="text"name="job_title" />
+                          <label for="jobtitle">What is you main activity ?</label>
+                          <span class="helper-text">ex: student, doctor, electrician, plomber</span>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <div class="col s12">
+                              <textarea id="jobdescription" name="job_description" 
+                              class="materialize-textarea"></textarea>
+                              <label for="jobdescription">Describe your activity</label>
+                          </div>
+                      </div>
+                    </div>
+                  <div class="row center-align">
+                    <div class="input-field col s6">
+                      <a class="btn white grey-text text-lighten-1 col s12"
+                      style="text-transform: none;" (click)="showAvatarForm()">
+                        Next time !
+                      </a>
+                    </div>
+                    <div class="input-field col s6">
+                      <button type="submit" class="btn blue darken-4 col s12">
+                        Save
+                      </button>
+                    </div>
+                  </div>
+            </form>
+            <!--  Form for avatar informations  -->
+            <form class="center-align" #avatarForm="ngForm" 
+              *ngIf="formAvatar"
+              (submitAvatar)="avatarForm.form.valid && submitAvatar()" novalidate>
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <input id="jobtitle" type="text"name="job_title"
+                          placeholder="ex: student, doctor, electrician, plomber" />
+                          <label for="jobtitle">What is you main activity</label>
+                      </div>
+                  </div>
+                  <div class="row center-align">
+                    <div class="input-field col s6">
+                      <a href='/content/' class="btn white grey-text text-lighten-1 col s12"
+                      style="text-transform: none;">
+                        Not now !
+                      </a>
+                    </div>
+                    <div class="input-field col s6">
+                      <button type="submit" class="btn blue darken-4 col s12">
+                        Save
+                      </button>
+                    </div>
+                  </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<!--left contain-->
+<div class="col m4 l3 hide-on-small-only">
+    <div class="card">
+        <div class="card-image center-align"
+        style="border:solid red 0px;height:60px;
+        background-size:cover;background-image:url(assets/images/sean.jpg);">
+        &nbsp;
+        </div>
+        <div class="card-content" style="padding:1px;">
+            <a blue darken-4>
+                <img src="assets/images/sean.jpg" class="circle"
+                style="height:72px;width:72px;
+                position:relative;display:inline-block;margin-top:-36px;left:50%;
+                transform:translateX(-50%);
+                border: solid 2px #fff;">
+            </a>
+            <div class="row">
+                <span class="username col s12 center-align">
+                    <a href="/myprofile" class="blue-text text-darken-4">
+                        <strong style="font-size: 80%;">
+                            {{userDetails.firstName}} {{userDetails.lastName}}
+                        </strong>
+                    </a><br>
+                    <span class="grey-text text-darken-1" 
+                        style="font-size: 80%;">
+                        {{userDetails.jobTitle}}
+                    </span>
+                </span>
+            </div>
+            <div class="row profile-counts">
+                <span class="username col s4 center-align">
+                    <strong>101</strong><br>
+                    <span class="grey-text text-darken-1">
+                        <i>Deals</i>
+                    </span>
+                </span>
+                <span class="username col s4 center-align">
+                    <strong>721</strong><br>
+                    <span class="grey-text text-darken-1">
+                        <i>Viewers</i>
+                    </span>
+                </span>
+                <span class="username col s4 center-align">
+                    <strong>65</strong><br>
+                    <span class="grey-text text-darken-1">
+                        <i>Likes</i>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <ul class="collection with-header">
+    <li class="collection-header">Groups contents</li>
+    <li class="collection-item">Alvin</li>
+    <li class="collection-item">Alvin</li>
+    <li class="collection-item">Alvin</li>
+    <li class="collection-item">Alvin</li>
+    <li class="collection-header center-align">
+        <a href="#" class="blue-text text-darken-2">
+            <strong><small>VIEW MORE</small></strong>
+        </a>
+    </li>
+    </ul>
+</div>
+<!--main contain-->
+<div class="col s12 m8 l6">
+  <div class="card post-search hoverable col s12">
+    <div class="card-content">
+        <textarea placeholder="What do you want today ?"
+        class="materialize-textarea" rows="3"></textarea>
+    </div>
+    <div class="card-action">
+      <a class="btn btn-small blue darken-4 waves right">Post</a>
+    </div>
+  </div>
+  <div class="card card-posts col s12"
+  *ngFor="let contentPost of contentPosts">
+    <div class="card-content">
+      <p>{{ contentPost.dealName }}</p>
+      <p>{{ contentPost.cat }} - {{ contentPost.price }}</p>
+      <p>{{ contentPost.desc }}</p>
+      <p>{{ contentPost.record_date }}</p>
+    </div>
+    <div class="card-action footer">
+  
+    </div>
+  </div>
+</div>
+<!--right contain-->
+<div class="col l3 hide-on-med-and-down">
+  <div class="">
+      <div class="card">
+          <div class="card-image">
+              <img src="assets/images/brand03.jpg" alt="">
+          </div>
+          <div class="card-content" style="padding:10px;">
+              <p><small>
+                  <strong>
+                  <span class="grey-text text-darken-1"
+                  style="font-size:80%;">SPONSORISED
+                  </span><br>
+                  A Mother's Full-Times Story</strong><br>
+                  I am a very simple card.
+                  I am good at containing small bits of information... <br>
+                  <span class="grey-text text-darken-1"
+                  style="font-size:80%;">NOV 12, 2017 - ARCHITECTURAL DIGEST
+                  </span>
+              </small>
+              </p>
+          </div>
+        </div>
+        <span style="margin-left: 10px;">
+            <small>
+                <strong>Peoples arround -
+                    <a routerLink="/peoples">View all</a>
+                </strong>
+            </small>
+        </span>
+        <ul class="collection peoples-list" *ngFor="let people of peoples">
+            <li class="collection-item avatar hoverable">
+              <img src="assets/images/yuna.jpg" alt="" class="circle">
+              <span class="title">
+                <a routerLink="/peoples/people/{{ people.peopleID }}">
+                  <strong>{{ people.fullname }}</strong>
+                </a>
+              </span>
+              <p class="jobtitle">
+                {{ people.jobtitle }}<br/>
+                <i class="distance">{{ people.distance }}</i>
+              </p>
+              <a routerLink="/peoples/people/{{ people.peopleID }}" class="secondary-content">
+                <i class="material-icons">grade</i>
+              </a>
+            </li>
+        </ul>
+  </div>
+</div>
