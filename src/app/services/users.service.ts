@@ -7,6 +7,11 @@ const headers = new HttpHeaders().set(
   'application/x-www-form-urlencoded'
 );
 
+const headersMultipart = new HttpHeaders().set(
+  'Content-Type',
+  'application/x-www-form-urlencoded'
+);
+
 const API_URL = environment.apiUrl;
 
 @Injectable({
@@ -23,26 +28,26 @@ export class UsersService {
 
   /* Numbers of day for DOB */
   public dobDays() {
-    return Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-      12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-      24, 25, 26, 27, 28, 29, 30, 31);
+    return Array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
+      '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
+      '24', '25', '26', '27', '28', '29', '30', '31');
   }
 
   /* Numbers of months for DOB */
   public dobMonths() {
     return [
-      { monthNumber: 1, longname: 'January', shortname: 'Jan' },
-      { monthNumber: 2, longname: 'February', shortname: 'Feb' },
-      { monthNumber: 3, longname: 'March', shortname: 'Mar' },
-      { monthNumber: 4, longname: 'April', shortname: 'Apr' },
-      { monthNumber: 5, longname: 'May', shortname: 'May' },
-      { monthNumber: 6, longname: 'June', shortname: 'Jun' },
-      { monthNumber: 7, longname: 'July', shortname: 'Jul' },
-      { monthNumber: 8, longname: 'August', shortname: 'Aug' },
-      { monthNumber: 9, longname: 'September', shortname: 'Sep' },
-      { monthNumber: 10, longname: 'October', shortname: 'Oct' },
-      { monthNumber: 11, longname: 'November', shortname: 'Nov' },
-      { monthNumber: 12, longname: 'December', shortname: 'Dec' }
+      { monthNumber: '01', longname: 'January', shortname: 'Jan' },
+      { monthNumber: '02', longname: 'February', shortname: 'Feb' },
+      { monthNumber: '03', longname: 'March', shortname: 'Mar' },
+      { monthNumber: '04', longname: 'April', shortname: 'Apr' },
+      { monthNumber: '05', longname: 'May', shortname: 'May' },
+      { monthNumber: '06', longname: 'June', shortname: 'Jun' },
+      { monthNumber: '07', longname: 'July', shortname: 'Jul' },
+      { monthNumber: '08', longname: 'August', shortname: 'Aug' },
+      { monthNumber: '09', longname: 'September', shortname: 'Sep' },
+      { monthNumber: '10', longname: 'October', shortname: 'Oct' },
+      { monthNumber: '11', longname: 'November', shortname: 'Nov' },
+      { monthNumber: '12', longname: 'December', shortname: 'Dec' }
     ];
   }
 
@@ -113,7 +118,7 @@ export class UsersService {
    * @param data
    */
   public setPersonal(data) {
-    return this.http.post(API_URL + 'firstsetup/personal/', data, {headers: headers});
+    return this.http.post(API_URL + 'users/firstsetup/personal/', data, {headers: headersMultipart});
   }
 
   /**
@@ -121,7 +126,7 @@ export class UsersService {
    * @param data
    */
   public setJobactivity(data) {
-    return this.http.post(API_URL + 'firstsetup/job/', data, {headers: headers});
+    return this.http.post(API_URL + 'users/firstsetup/job/', data, {headers: headers});
   }
 
 }

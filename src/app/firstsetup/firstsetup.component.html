@@ -29,24 +29,6 @@
             <form class="center-align" #personalForm="ngForm" enctype="multipart/form-data"
             *ngIf="formPersonal" (ngSubmit)="submitPersonal(personalForm.value)" >
                 <div class="row">
-                    <div class="file-field input-field">
-                        <div class="btn2">
-                            <img src="../../assets/images/avatar-6.png"
-                              id="imagepreview" class="circle image_preview" />
-                          <input type="file" id="avatar_input" name="usseravatar"
-                          [(ngModel)]="personalModel.useravatar" #useravatar="ngModel" />
-                          <input class="file-path validate" type="text" style="display: none;">
-                        </div>
-                        <!--
-                        <div class="file-path-wrapper">
-                          <input class="file-path validate" type="text" style="display: none;">
-                        </div>
-                        -->
-                      </div>
-                  <br>
-                  
-                </div>
-                <div class="row">
                     <div class="input-field col s12 m6">
                         <input id="firstName" type="text" name="firstname"
                         [(ngModel)]="personalModel.firstname" #firstname="ngModel" />
@@ -103,46 +85,55 @@
                           </select>
                     </div>
                 </div>
-                <div class="row center-align">
-                  <div class="input-field col s6">
-                    <a class="btn white grey-text text-lighten-1 col s12"
-                    style="text-transform: none;" (click)="showActivityForm()">
-                      not now!!
-                    </a>
+                <div class="row">
+                  <div class="input-field col s12">
+                      <input id="jobtitle" type="text"name="job_title" />
+                      <label for="jobtitle">What is you main activity ?</label>
+                      <span class="helper-text">ex: student, doctor, electrician, plomber</span>
                   </div>
-                  <div class="input-field col s6">
-                    <button type="submit" class="btn blue darken-4 col s12">
-                      Save
-                    </button>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                      <div class="col s12">
+                          <textarea id="jobdescription" name="job_description" 
+                          class="materialize-textarea"></textarea>
+                          <label for="jobdescription">Describe your activity</label>
+                      </div>
                   </div>
+              </div>
+              <div class="row center-align">
+                <div class="input-field col s6">
+                  <a class="btn white grey-text text-lighten-1 col s12"
+                  style="text-transform: none;" (click)="showlocationForm()">
+                    not now!!
+                  </a>
                 </div>
+                <div class="input-field col s6">
+                  <button type="submit" class="btn blue darken-4 col s12">
+                    Save
+                  </button>
+                </div>
+              </div>
             </form>
-            <!--  Form for activity informations  -->
-            <form class="center-align" #activityForm="ngForm" 
-              *ngIf="formActivity"
-              (submitActivity)="activityForm.form.valid && submitActivity()" novalidate>
-                  <div class="row">
-                      <div class="input-field col s12">
-                          <input id="jobtitle" type="text"name="job_title" />
-                          <label for="jobtitle">What is you main activity ?</label>
-                          <span class="helper-text">ex: student, doctor, electrician, plomber</span>
+            <!--  Form for avatar informations  -->
+            <form class="center-align" #avatarForm="ngForm" 
+              *ngIf="formAvatar"
+              (submitAvatar)="avatarForm.form.valid && submitAvatar()" novalidate>
+                    <div class="row">
+                      <div class="file-field input-field">
+                        <div class="btn2">
+                            <img src="../../assets/images/avatar-6.png"
+                              id="imagepreview" class="circle image_preview" />
+                          <input type="file" id="avatar_input" name="useravatar"
+                          [(ngModel)]="personalModel.useravatar" #useravatar="ngModel" />
+                          <input class="file-path validate" type="text" style="display: none;">
+                        </div>
+                        <!--
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text" style="display: none;">
+                        </div>
+                        -->
                       </div>
-                  </div>
-                  <div class="row">
-                      <div class="input-field col s12">
-                          <div class="col s12">
-                              <textarea id="jobdescription" name="job_description" 
-                              class="materialize-textarea"></textarea>
-                              <label for="jobdescription">Describe your activity</label>
-                          </div>
-                      </div>
-                    </div>
-                  <div class="row center-align">
-                    <div class="input-field col s6">
-                      <a class="btn white grey-text text-lighten-1 col s12"
-                      style="text-transform: none;" (click)="showAvatarForm()">
-                        Next time !
-                      </a>
                     </div>
                     <div class="input-field col s6">
                       <button type="submit" class="btn blue darken-4 col s12">
@@ -151,22 +142,15 @@
                     </div>
                   </div>
             </form>
-            <!--  Form for avatar informations  -->
-            <form class="center-align" #avatarForm="ngForm" 
-              *ngIf="formAvatar"
-              (submitAvatar)="avatarForm.form.valid && submitAvatar()" novalidate>
-                  <div class="row">
-                      <div class="input-field col s12">
-                          <input id="jobtitle" type="text"name="job_title"
-                          placeholder="ex: student, doctor, electrician, plomber" />
-                          <label for="jobtitle">What is you main activity</label>
-                      </div>
-                  </div>
+            <!--  Form for location informations  -->
+            <form class="center-align" #locationForm="ngForm" 
+              *ngIf="formLocation"
+              (submitActivity)="locationForm.form.valid && submitLocation()" novalidate>
                   <div class="row center-align">
                     <div class="input-field col s6">
-                      <a href='/content/' class="btn white grey-text text-lighten-1 col s12"
-                      style="text-transform: none;">
-                        Not now !
+                      <a class="btn white grey-text text-lighten-1 col s12"
+                      style="text-transform: none;" (click)="showAvatarForm()">
+                        Next time !
                       </a>
                     </div>
                     <div class="input-field col s6">
