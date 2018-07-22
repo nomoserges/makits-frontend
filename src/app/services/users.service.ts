@@ -9,7 +9,7 @@ const headers = new HttpHeaders().set(
 
 const headersMultipart = new HttpHeaders().set(
   'Content-Type',
-  'application/x-www-form-urlencoded'
+  'multipart/form-data'
 );
 
 const API_URL = environment.apiUrl;
@@ -102,7 +102,8 @@ export class UsersService {
    * @param data
    */
   public sendemailToResetPassword(data) {
-    return this.http.post(API_URL + 'users/losspass/sendemail/', data, {headers: headers});
+    return this.http.post(API_URL + 'users/losspass/sendemail/',
+      data, {headers: headers});
   }
 
   /**
@@ -110,7 +111,8 @@ export class UsersService {
    * @param data
    */
   public changePassword(data) {
-    return this.http.post(API_URL + 'users/losspass/change/', data, {headers: headers});
+    return this.http.post(API_URL + 'users/losspass/change/',
+      data, {headers: headers});
   }
 
   /**
@@ -118,7 +120,8 @@ export class UsersService {
    * @param data
    */
   public setPersonal(data) {
-    return this.http.post(API_URL + 'users/firstsetup/personal/', data, {headers: headersMultipart});
+    return this.http.post(API_URL + 'users/firstsetup/personal/',
+      data, {headers: headers});
   }
 
   /**
@@ -126,7 +129,20 @@ export class UsersService {
    * @param data
    */
   public setJobactivity(data) {
-    return this.http.post(API_URL + 'users/firstsetup/job/', data, {headers: headers});
+    return this.http.post(API_URL + 'users/firstsetup/job/',
+      data, {headers: headers});
   }
 
+  /**
+   * Setting informations about the user avatar profile
+   * @param data
+   */
+  public setAvatar(data) {
+    // this is the important step. You need to set content type as null
+    /*headers.set('Content-Type', null);
+    headers.set('Accept', 'multipart/form-data');*/
+    return this.http.post(
+      API_URL + 'avatars/new/',
+      data, {headers: headers});
+  }
 }
