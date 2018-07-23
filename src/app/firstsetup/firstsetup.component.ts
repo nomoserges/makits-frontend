@@ -5,6 +5,7 @@ import { UsersService } from '../services/users.service';
 import { StorageService } from '../services/storage.service';
 import { LocationsService } from '../services/locations.service';
 import { jquery as $ } from 'jquery';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -25,10 +26,11 @@ export class FirstsetupComponent implements OnInit {
   avatarModel: any = {};
   locationModel: any = {};
 
+  avatarForm: FormGroup;
   // image location for preview canvas
   localUrl: any;
   // avatar container
-  avatarFile: File;
+  avatarFile: File = null;
   // arrays of dates
   dobDays: any;
   dobMonths: any;
@@ -38,6 +40,7 @@ export class FirstsetupComponent implements OnInit {
   tokencode: string;
   useremail: string;
   private sub: any;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -180,24 +183,21 @@ export class FirstsetupComponent implements OnInit {
   /*  Taking image from input to image
     * canvas for previewing*/
    showPreviewImage(event: any) {
+    const reader = new FileReader();
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+      this.avatarFile = <File>event.target.files[0];
+      reader.readAsDataURL(this.avatarFile);
       reader.onload = (events: any) => {
         this.localUrl = events.target.result;
       };
-      reader.readAsDataURL(event.target.files[0]);
     }
-    this.avatarFile = event.target.files[0];
   }
 
   /**
    * Submit avatar form
    */
-  submitAvatar(formValue, event: any) {
-    const uploadData = new FormData();
-    uploadData.append('useravatar', this.avatarFile);
-    uploadData.append('userid', this.userid);
-    console.log(uploadData);
+  submitAvatar(formValue) {
+    // console.log(this.avatarFile);
     // set blank string where undefined
     // tslint:disable-next-line:forin
     for (const key in formValue) {
@@ -206,13 +206,21 @@ export class FirstsetupComponent implements OnInit {
         formValue[key] = '';
       }
     }
-    formValue['userid'] = this.userid;
-    let serverResponse;
-    console.log(formValue.name);
-    this.userService.setAvatar(formValue).subscribe(res => {
-      serverResponse = res;
-      console.log(serverResponse);
-    });
 
+    formValue['image_name'] = this.avatarFile['name'];
+    formValue['image_type'] = this.avatarFile['type'];
+    formValue['image_size'] = this.avatarFile['size'];
+    formValue['image_binary'] = this.localUrl.split(',')[1];
+    formValue['userid'] = this.userid;
+   /*
+   const fd: FormData = new FormData();
+    fd.append('image', this.avatarFile, this.avatarFile.name);
+    */
+    // let serverResponse;
+    console.log(formValue);
+    this.userService.setAvatar(formValue)
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 }

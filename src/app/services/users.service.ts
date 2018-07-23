@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient , HttpHeaders, HttpParams, HttpRequest, HttpEvent} from '@angular/common/http';
 
 const headers = new HttpHeaders().set(
   'Content-Type',
@@ -142,7 +142,8 @@ export class UsersService {
     /*headers.set('Content-Type', null);
     headers.set('Accept', 'multipart/form-data');*/
     return this.http.post(
-      API_URL + 'avatars/new/',
-      data, {headers: headers});
+      API_URL + 'avatars/new/', data, {
+        headers: headers
+      });
   }
 }
