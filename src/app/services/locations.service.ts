@@ -16,7 +16,7 @@ const API_URL = environment.apiUrl;
 export class LocationsService {
   data;
   // position informations
-  position: any;
+  userPosition: any;
   public latitude: number;
   public longitude: number;
   googleAPI_URL: any = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyANKqxSKDlUhL-WvpjSb8dC3HH7SV2UZkc&sensor=false&latlng=';
@@ -35,11 +35,12 @@ export class LocationsService {
     return Promise.reject(error.message || error);
   }
 
-  private setGPSPosition(position) {
-    this.position = position;
+  public setGPSPosition(position) {
+    this.userPosition = position;
   }
   /**
-   * Activate the GPS location and getting the coords
+   * Activate the GPS location and getting
+   * the position object
    */
   public getGPSPosition() {
     if (window.navigator && window.navigator.geolocation) {
@@ -50,13 +51,13 @@ export class LocationsService {
         error => {
           switch (error.code) {
             case 1:
-              console.log('Permission Denied');
+              this.userPosition = 'Permission Denied';
               break;
             case 2:
-              console.log('Position Unavailable');
+              this.userPosition = 'Position Unavailable';
               break;
             case 3:
-              console.log('Timeout');
+              this.userPosition = 'Timeout';
               break;
           }
         },
@@ -65,17 +66,26 @@ export class LocationsService {
   }
 
 
-  public googleGeolocation(userPosition) {
+  public googleGeolocation(position) {
+    // this.getGPSPosition();
+    this.userPosition = position;
+    console.log(this.userPosition );
     // we launch gps capablities
     let serverResponse;
     this.http.get(
-      /*this.googleAPI_URL + userPosition.coords.longitude
-      + ',' + userPosition.coords.latitude,*/
+      /*this.googleAPI_URL + position.coords.longitude
+      + ',' + position.coords.latitude,*/
       this.googleAPI_URL + '3.903574,11.528872',
       {headers: headers}
     ).subscribe(res => {
       serverResponse = res;
-      console.log('location result: ' + JSON.stringify(serverResponse.results[0]['address_components']));
+      let locationInfos: any;
+      locationInfos = serverResponse.results[0]['address_components'];
+      console.log('location place: ' + locationInfos[0]['long_name']);
+      console.log('location town: ' + locationInfos[1]['long_name']);
+      console.log('location region: ' + locationInfos[3]['long_name']);
+      console.log('location country: ' + locationInfos[4]['long_name']
+      + ',' + locationInfos[4]['short_name']);
     });
   }
 

@@ -144,7 +144,6 @@ export class FirstsetupComponent implements OnInit {
     // console.log('All form datas: ' + formValue);
     this.personalFormBlock = false;
     this.locationFormBlock = true;
-    this.locationsService.getGPSPosition();
   }
 
 }
