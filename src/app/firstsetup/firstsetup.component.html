@@ -15,7 +15,7 @@
   <div class="row" *ngIf="personalFormBlock">
     <form #userForm="ngForm" enctype="multipart/form-data"
   (ngSubmit)="submitUserForm(userForm.value)">
-    <div class="card col s12 m6 offset-m3">
+    <div class="card col s12 l6 offset-l3">
       <div class="card-content black-text">
         <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
       </div>
@@ -124,7 +124,7 @@
       </div>
       <div class="card-action">
         <a href="javascript:void(0);" 
-        (click)="personalFormBlock=false;locationFormBlock=true;locationsService.getGPSPosition();"
+        (click)="personalFormBlock=false;locationFormBlock=true;openGeocoding();"
          class="blue-text text-darken-4">Ignore</a>
         <button type="submit" class="btn indigo">Next</button>
       </div>
@@ -133,7 +133,8 @@
   </div>
   <!-- Row - Card for location informations (country, region, town and place) -->
   <div class="row" *ngIf="locationFormBlock">
-    <form>
+    <form #locationForm="ngForm"
+    (ngSubmit)="submitUserForm(locationForm.value)">
       <div class="card col s12 m6 offset-m3">
         <!--  Card content  -->
         <div class="card-content black-text">
@@ -141,22 +142,26 @@
           <p>Enjoy anything arround.</p>
           <div class="row">
             <div class="input-field col s12 m6">
-              <input type="text" name="locationCountry" 
-              placeholder="Your country" value="" />
+              <input type="text" name="country" id="locationCountry"
+              [(ngModel)]="locationModel.country" #country="ngModel" />
+              <span class="helper-text" >Ex: Cameroun</span>
             </div>
             <div class="input-field col s12 m6">
-              <input type="text" name="locationRegion"
-              placeholder="Region" value="" />
+              <input type="text" name="region" id="locationRegion"
+              [(ngModel)]="locationModel.region" #region="ngModel" />
+              <span class="helper-text" >Ex: Centre, North</span>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12 m6">
-              <input type="text" name="locationCity"
-              placeholder="City" value="" />
+              <input type="text" name="locationCity" id="locationCity"
+              [(ngModel)]="locationModel.city" #city="ngModel" />
+              <span class="helper-text" >Ex: Douala, Yaoundé</span>
             </div>
             <div class="input-field col s12 m6">
-              <input type="text" name="locationPlace"
-              placeholder="Place name" value="" />
+              <input type="text" name="locationPlace" id="locationplace"
+              [(ngModel)]="locationModel.place" #place="ngModel" />
+              <span class="helper-text" >Ex: Ndokotti, Rond-point</span>
             </div>
           </div>
         </div>

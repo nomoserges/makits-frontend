@@ -23,6 +23,8 @@ export class FirstsetupComponent implements OnInit {
   useremail: string;
   // user form model on view
   userModel: any = {};
+  // location form model on view
+  locationModel: any = {};
   // image location for preview canvas
   localUrl: any;
   // avatar container
@@ -144,6 +146,60 @@ export class FirstsetupComponent implements OnInit {
     // console.log('All form datas: ' + formValue);
     this.personalFormBlock = false;
     this.locationFormBlock = true;
+    this.openGeocoding();
+  }
+
+  public openGeocoding() {
+    if (window.navigator && window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(
+        position => {
+          let serverResponse;
+          // const userCoords: String = '3.903574,11.528872';
+          let userCoords: String;
+          userCoords = position.coords.longitude
+          + ',' + position.coords.latitude;
+          this.locationsService.googleGeolocation(userCoords)
+          .subscribe(res => {
+            serverResponse = res;
+            let locationInfos: any;
+            locationInfos = serverResponse.results[0]['address_components'];
+            console.log( locationInfos.length);
+            for (let index = 0; index < locationInfos.length; index++) {
+              const element = locationInfos[index];
+              /* Populating the form with returned values */
+              switch (element.types[0]) {
+                case 'country':
+                this.locationModel.country = element['long_name']
+                + ', ' + element['short_name'];
+                  break;
+                case 'administrative_area_level_1':
+                  this.locationModel.region = element['long_name'];
+                  break;
+                case 'locality':
+                  this.locationModel.city = element['long_name'];
+                  break;
+                case 'Road-route':
+                  this.locationModel.city = element['long_name'];
+                  break;
+              }
+            }
+          });
+        },
+        error => {
+          switch (error.code) {
+            case 1:
+              console.log('Permission Denied');
+              break;
+            case 2:
+              console.log('Position Unavailable');
+              break;
+            case 3:
+              console.log('Timeout');
+              break;
+          }
+        },
+      );
+    }
   }
 
 }

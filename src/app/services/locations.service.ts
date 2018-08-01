@@ -66,27 +66,12 @@ export class LocationsService {
   }
 
 
-  public googleGeolocation(position) {
-    // this.getGPSPosition();
-    this.userPosition = position;
-    console.log(this.userPosition );
-    // we launch gps capablities
-    let serverResponse;
-    this.http.get(
-      /*this.googleAPI_URL + position.coords.longitude
-      + ',' + position.coords.latitude,*/
-      this.googleAPI_URL + '3.903574,11.528872',
+  public googleGeolocation(userCoords) {
+    // userCoords will look like long,lat
+    return this.http.get(
+      this.googleAPI_URL + userCoords,
       {headers: headers}
-    ).subscribe(res => {
-      serverResponse = res;
-      let locationInfos: any;
-      locationInfos = serverResponse.results[0]['address_components'];
-      console.log('location place: ' + locationInfos[0]['long_name']);
-      console.log('location town: ' + locationInfos[1]['long_name']);
-      console.log('location region: ' + locationInfos[3]['long_name']);
-      console.log('location country: ' + locationInfos[4]['long_name']
-      + ',' + locationInfos[4]['short_name']);
-    });
+    );
   }
 
   /**
