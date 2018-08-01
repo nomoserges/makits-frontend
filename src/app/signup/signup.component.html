@@ -9,80 +9,79 @@
 <!-- Div which contain bg image     -->
 <div class="signup-body"></div>
 
-<div class="section">
+<div class="container">
     <div class="row">
-        <div class="card center-align col s12" style="width:350px;opacity: 0.9;">
+        <div class="card center-align col s12 m6 offset-m3" style="opacity: 0.95;">
             <div class="card-content">
-            <div class="card-title center-align">
-                Sign up
-            </div>
-            <form class="center-align" 
-            #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate>
-                    
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="userPseudo" type="text" minlength="4"
-                        name="pseudo" [(ngModel)]="formModel.pseudo" #pseudo="ngModel" 
-                        [ngClass]="{ 'is-invalid': registerForm.submitted && pseudo.invalid }" required />
-                        <label for="userPseudo">Pseudo</label>
-                        <div *ngIf="registerForm.submitted && pseudo.invalid" class="invalid-feedback">
-                            <div *ngIf="pseudo.errors.required" 
-                            class="helper-text red-text text-darken-1" data-error="wrong" 
-                            data-success="right">Pseudo is required</div>
+                <div class="card-title center-align">
+                    Sign up
+                </div>
+                <form class="center-align" 
+                #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="userPseudo" type="text" minlength="4"
+                            name="pseudo" [(ngModel)]="formModel.pseudo" #pseudo="ngModel" 
+                            [ngClass]="{ 'is-invalid': registerForm.submitted && pseudo.invalid }" required />
+                            <label for="userPseudo">Pseudo</label>
+                            <div *ngIf="registerForm.submitted && pseudo.invalid" class="invalid-feedback">
+                                <div *ngIf="pseudo.errors.required" 
+                                class="helper-text red-text text-darken-1" data-error="wrong" 
+                                data-success="right">Pseudo is required</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="userEmail" type="text" 
-                        name="email" [(ngModel)]="formModel.email" #email="ngModel" 
-                        [ngClass]="{ 'is-invalid': registerForm.submitted && email.invalid }" required />
-                        <label for="userEmail">Email</label>
-                        <div *ngIf="registerForm.submitted && email.invalid" class="invalid-feedback">
-                            <div *ngIf="email.errors.required" 
-                            class="helper-text red-text text-darken-1" data-error="wrong" 
-                            data-success="right">Email is required or invalid</div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="userEmail" type="text" 
+                            name="email" [(ngModel)]="formModel.email" #email="ngModel" 
+                            [ngClass]="{ 'is-invalid': registerForm.submitted && email.invalid }" required />
+                            <label for="userEmail">Email</label>
+                            <div *ngIf="registerForm.submitted && email.invalid" class="invalid-feedback">
+                                <div *ngIf="email.errors.required" 
+                                class="helper-text red-text text-darken-1" data-error="wrong" 
+                                data-success="right">Email is required or invalid</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col m6 s6">
-                        <input id="userPassword" type="password" 
-                            name="password" [(ngModel)]="formModel.password" #password="ngModel" 
-                            [ngClass]="{ 'is-invalid': registerForm.submitted && password.invalid }" required />
-                        <label for="userPassword">Password</label>
-                        <div *ngIf="registerForm.submitted && password.invalid" class="invalid-feedback">
-                            <div *ngIf="password.errors.required" 
-                            class="helper-text red-text text-darken-1" data-error="wrong" 
-                            data-success="right">Password is required</div>
+                    <div class="row">
+                        <div class="input-field col m6 s6">
+                            <input id="userPassword" type="password" 
+                                name="password" [(ngModel)]="formModel.password" #password="ngModel" 
+                                [ngClass]="{ 'is-invalid': registerForm.submitted && password.invalid }" required />
+                            <label for="userPassword">Password</label>
+                            <div *ngIf="registerForm.submitted && password.invalid" class="invalid-feedback">
+                                <div *ngIf="password.errors.required" 
+                                class="helper-text red-text text-darken-1" data-error="wrong" 
+                                data-success="right">Password is required</div>
+                            </div>
+                        </div>
+                        <div class="input-field col m6 s6">
+                            <input id="userPassword_confirmation" type="password" 
+                                name="password_confirmation" [(ngModel)]="formModel.password_confirmation" 
+                                #password_confirmation="ngModel" 
+                                [ngClass]="{ 'is-invalid': registerForm.submitted && password_confirmation.invalid }" required />
+                            <label for="userPassword_confirmation">Confirm</label>
+                            <div *ngIf="registerForm.submitted && password_confirmation.invalid" class="invalid-feedback">
+                                <div *ngIf="password_confirmation.errors.required" 
+                                class="helper-text red-text text-darken-1" data-error="wrong" 
+                                data-success="right">Password is required</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-field col m6 s6">
-                        <input id="userPassword_confirmation" type="password" 
-                            name="password_confirmation" [(ngModel)]="formModel.password_confirmation" 
-                            #password_confirmation="ngModel" 
-                            [ngClass]="{ 'is-invalid': registerForm.submitted && password_confirmation.invalid }" required />
-                        <label for="userPassword_confirmation">Confirm</label>
-                        <div *ngIf="registerForm.submitted && password_confirmation.invalid" class="invalid-feedback">
-                            <div *ngIf="password_confirmation.errors.required" 
-                            class="helper-text red-text text-darken-1" data-error="wrong" 
-                            data-success="right">Password is required</div>
+                    <div class="row center-align">
+                        <div class="input-field col s12 m6 offset-m3">
+                        <button type="submit" 
+                        class="btn blue darken-4 col s12">Sign up</button>
                         </div>
                     </div>
-                </div>
-                <div class="row center-align">
-                    <div class="input-field col s12 m6 offset-m3">
-                    <button type="submit" 
-                    class="btn blue darken-4 col s12">Sign up</button>
+                    <div class="row center-align">
+                        <span>Already have an account?<br>
+                            <a routerLink="../" 
+                            class="blue-text text-darken-4">Sign in here</a>
+                        </span>
                     </div>
-                </div>
-                <div class="row center-align">
-                    <span>Already have an account?<br>
-                        <a routerLink="../" 
-                        class="blue-text text-darken-4">Sign in here</a>
-                    </span>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>

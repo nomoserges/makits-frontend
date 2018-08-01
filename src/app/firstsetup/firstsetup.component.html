@@ -1,6 +1,6 @@
 <div class="navbar-fixed">
   <nav>
-      <div class="nav-wrapper blue darken-2">
+      <div class="nav-wrapper indigo">
           <a routerLink="/out" class="brand-logo center" style="font-family: explora;font-size: 320%;">makits</a>
       </div>
   </nav>
@@ -10,13 +10,13 @@
 <div class="signup-body"></div>
 
 <!-- Wizard bloc for personal informations  -->
-<div class="section">
+<div class="container">
   <!--  Sub-section for user form -->
   <div class="row" *ngIf="personalFormBlock">
     <form #userForm="ngForm" enctype="multipart/form-data"
   (ngSubmit)="submitUserForm(userForm.value)">
-    <div class="card blued">
-      <div class="card-content white-text">
+    <div class="card col s12 m6 offset-m3">
+      <div class="card-content black-text">
         <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
       </div>
       <div class="card-tabs">
@@ -126,7 +126,7 @@
         <a href="javascript:void(0);" 
         (click)="personalFormBlock=false;locationFormBlock=true;locationsService.getGPSPosition();"
          class="blue-text text-darken-4">Ignore</a>
-        <button type="submit" class="btn blue darken-2">Next</button>
+        <button type="submit" class="btn indigo">Next</button>
       </div>
     </div>
     </form>
@@ -134,7 +134,7 @@
   <!-- Row - Card for location informations (country, region, town and place) -->
   <div class="row" *ngIf="locationFormBlock">
     <form>
-      <div class="card col s12 m8 offset-m2">
+      <div class="card col s12 m6 offset-m3">
         <!--  Card content  -->
         <div class="card-content black-text">
           <span class="card-title">Setting up your location</span>
@@ -163,7 +163,7 @@
         <!-- Card action buttons  -->
         <div class="card-action">
           <a href="/content/" class="blue-text text-darken-4">Ignore</a>
-          <button type="submit" class="btn blue darken-2">Save</button>
+          <button type="submit" class="btn indigo">Save</button>
         </div>
       </div>
     </form>
