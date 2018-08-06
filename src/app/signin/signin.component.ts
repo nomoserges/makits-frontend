@@ -42,11 +42,7 @@ export class SigninComponent implements OnInit {
           this.storage.setDatas('user', serverResponse.datas);
           window.open('/', '_self');
         }
-      },
-      err => {
-        console.log(err);
-      }
-    );
+      });
   }
 
 }

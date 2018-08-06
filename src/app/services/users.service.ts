@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient , HttpHeaders, HttpParams, HttpRequest, HttpEvent} from '@angular/common/http';
+import { HttpClient , HttpHeaders} from '@angular/common/http';
 
-const headers = new HttpHeaders().set(
-  'Content-Type',
-  'application/x-www-form-urlencoded'
-);
+const headers = new HttpHeaders()
+.set('Content-Type', 'application/x-www-form-urlencoded');
 
 const headersMultipart = new HttpHeaders().set(
   'Content-Type',
@@ -19,7 +17,9 @@ const API_URL = environment.apiUrl;
 })
 export class UsersService {
   data;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // headers.set('Access-Control-Allow-Origin', '*');
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);

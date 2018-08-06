@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // do stuff here....
+    // we'll if there is localstorage datas
   }
 
   onSubmit() {
@@ -37,28 +37,12 @@ export class SignupComponent implements OnInit {
         Materialize.toast({html: serverResponse.message, classes: 'red darken-1 rounded'});
       } else {
         // proccess for local storage
-        Materialize.toast({html: serverResponse.message, classes: 'blue lighten-1 rounded'});
+        Materialize.toast({
+          html: serverResponse.message,
+          classes: 'blue lighten-5 blue-text text-darken-4 rounded'
+        });
         // this.storage.setDatas('user', serverResponse.datas);
         // this.router.navigate(['/']);
-      }
-    },
-    err => {
-      console.log(err.error.errors);
-      if ( err.status === 422) {
-        let emailError = '';
-        let pseudoError = '';
-        let passwordError = '';
-        if ( err.error.errors.email !== undefined ) {
-          emailError = err.error.errors.email;
-        }
-        if ( err.error.errors.pseudo !== 'undefined' ) {
-          pseudoError = err.error.errors.pseudo;
-        }
-        if ( err.error.errors.password !== 'undefined' ) {
-          passwordError = err.error.errors.password;
-        }
-        Materialize.toast({html: pseudoError + '<br>'
-        + emailError + '<br>' + passwordError, classes: 'red darken-1 rounded'});
       }
     });
   }

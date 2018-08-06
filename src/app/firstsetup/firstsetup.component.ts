@@ -36,6 +36,10 @@ export class FirstsetupComponent implements OnInit {
   // For displaying forms blocks
   personalFormBlock: boolean;
   locationFormBlock: boolean;
+  personalBlock: boolean;
+  skillsBlock: boolean;
+  avatarBlock: boolean;
+  formContent: any[];
   private sub: any;
 
   constructor(
@@ -49,6 +53,10 @@ export class FirstsetupComponent implements OnInit {
     this.dobYears = userService.dobYear();
     this.localUrl = '../../assets/images/avatar-6.png';
     // this.userid = this.storage.getDatas('user')['userid'];
+    this.personalBlock = true;
+    this.skillsBlock = false;
+    this.avatarBlock = false;
+    this.formContent = [];
   }
 
   ngOnInit() {
@@ -66,7 +74,7 @@ export class FirstsetupComponent implements OnInit {
     this.userService.confirmEmailAccount(params).subscribe(res => {
         serverResponse = res;
         if ( serverResponse.status === 'nok') {
-          Materialize.toast({html: serverResponse.message, classes: 'red darken-1 rounded'});
+          Materialize.toast({html: serverResponse.message, classes: 'red darken-4 rounded'});
           // we redirect user to login screen
         } else {
           /* proccess for local storage and setting up the account
@@ -81,7 +89,6 @@ export class FirstsetupComponent implements OnInit {
     this.personalFormBlock = true;
     this.locationFormBlock = false;
   }
-
 
   /*  Taking image from input to image
     * canvas for previewing*/
@@ -101,9 +108,6 @@ export class FirstsetupComponent implements OnInit {
    * @param formValue
    */
   submitUserForm(formValue) {
-    let params: string = null;
-    let serverResponse;
-    // let serverResponse: any = null;
     // set blank string where undefined
     // tslint:disable-next-line:forin
     for (const key in formValue) {
@@ -112,47 +116,68 @@ export class FirstsetupComponent implements OnInit {
         formValue[key] = '';
       }
     }
-    // ------------------ Managing About informations -----------
-    // create date of birth variable
-    let dobInput: string;
-    if ( formValue['dob_day'] === '' || formValue['dob_month'] === '' || formValue['dob_year'] === '') {
-      dobInput = '';
-    } else {
-      dobInput = formValue['dob_year'] + formValue['dob_month'] + formValue['dob_day'];
+    // we looking for state of blocks
+    if (this.personalBlock === true) {
+      this.personalBlock = false;
+      this.skillsBlock = true;
+      this.avatarBlock = false;
+      this.formContent.push(formValue);
+    } else if (this.skillsBlock === true) {
+      this.personalBlock = false;
+      this.skillsBlock = false;
+      this.avatarBlock = true;
+      this.formContent.push(formValue);
+    } else if (this.avatarBlock === true) {
+      // we submit the form
+      this.formContent.push(formValue);
+      let params: string = null;
+      let serverResponse;
+      // ------------------ Managing About informations -----------
+      // create date of birth variable
+      let dobInput: string;
+      if ( this.formContent[0]['dob_day'] === '' || this.formContent[0]['dob_month'] === '' || this.formContent[0]['dob_year'] === '') {
+        dobInput = '';
+      } else {
+        dobInput = this.formContent[0]['dob_year']
+        + this.formContent[0]['dob_month']
+        + this.formContent[0]['dob_day'];
+      }
+      params = 'userid=' + this.userid + '&firstname=' + this.formContent[0]['firstname'] + '&lastname='
+      + this.formContent[0]['lastname'] + '&gender=' + this.formContent[0]['gender'] + '&dob=' + dobInput;
+      this.userService.setPersonal(params).subscribe(res => {
+        // console.log('about result: ' + res);
+      });
+      // ------------------ Managing Activity (Skills) informations -----------
+      params = 'userid=' + this.userid + '&job_title=' + this.formContent[1]['job_title']
+      + '&job_description=' + this.formContent[1]['job_description'];
+      this.userService.setJobactivity(params).subscribe(res => {
+        console.log('activity result: ' + res);
+      });
+      // ------------------ Managing Avatar informations -----------
+      this.formContent[2]['image_name'] = this.avatarFile['name'];
+      this.formContent[2]['image_type'] = this.avatarFile['type'];
+      this.formContent[2]['image_size'] = this.avatarFile['size'];
+      this.formContent[2]['image_binary'] = this.localUrl.split(',')[1];
+      this.formContent[2]['userid'] = this.userid;
+      this.userService.setAvatar(formValue)
+      .subscribe(res => {
+        serverResponse = res;
+        // console.log('avatar result: ' + res);
+        this.storage.setDatas('user', serverResponse.datas);
+      });
+      // console.log('All form datas: ' + formValue);
+      this.personalFormBlock = false;
+      this.locationFormBlock = true;
+      this.openGeocoding();
     }
-    params = 'userid=' + this.userid + '&firstname=' + formValue['firstname'] + '&lastname='
-    + formValue['lastname'] + '&gender=' + formValue['gender'] + '&dob=' + dobInput;
-    this.userService.setPersonal(params).subscribe(res => {
-      // console.log('about result: ' + res);
-    });
-    // ------------------ Managing Activity (Skills) informations -----------
-    params = 'userid=' + this.userid + '&job_title=' + formValue['job_title']
-    + '&job_description=' + formValue['job_description'];
-    this.userService.setJobactivity(params).subscribe(res => {
-      console.log('activity result: ' + res);
-    });
-    // ------------------ Managing Avatar informations -----------
-    formValue['image_name'] = this.avatarFile['name'];
-    formValue['image_type'] = this.avatarFile['type'];
-    formValue['image_size'] = this.avatarFile['size'];
-    formValue['image_binary'] = this.localUrl.split(',')[1];
-    formValue['userid'] = this.userid;
-    this.userService.setAvatar(formValue)
-    .subscribe(res => {
-      serverResponse = res;
-      // console.log('avatar result: ' + res);
-      this.storage.setDatas('user', serverResponse.datas);
-    });
-    // console.log('All form datas: ' + formValue);
-    this.personalFormBlock = false;
-    this.locationFormBlock = true;
-    this.openGeocoding();
+
   }
 
   public openGeocoding() {
     if (window.navigator && window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(
         position => {
+          console.log(position);
           let serverResponse;
           // const userCoords: String = '3.903574,11.528872';
           let userCoords: String;
@@ -163,10 +188,15 @@ export class FirstsetupComponent implements OnInit {
             serverResponse = res;
             let locationInfos: any;
             locationInfos = serverResponse.results[0]['address_components'];
-            console.log( locationInfos.length);
+            // depending on which informations we get from
+            // google geocoding api
             for (let index = 0; index < locationInfos.length; index++) {
               const element = locationInfos[index];
-              /* Populating the form with returned values */
+              /* Populating the form with returned values,
+              *  depending on which type of content (country,
+              * administive_area_level_1 = region,
+              * locality = city, Road-route = place name)
+              */
               switch (element.types[0]) {
                 case 'country':
                 this.locationModel.country = element['long_name']
